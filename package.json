@@ -1,0 +1,27 @@
+{
+  "name": "practicasegundoparcial",
+  "version": "1.0.0",
+  "description": "Una base con playlist compuestas de canciones y libros",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaudioMayoral/practicaSegundoParcial.git"
+  },
+  "author": "Emiliano Gomez y Claudio Mayoral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClaudioMayoral/practicaSegundoParcial/issues"
+  },
+  "homepage": "https://github.com/ClaudioMayoral/practicaSegundoParcial#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
