@@ -11,7 +11,13 @@ const sequelize = new Sequelize('user4DB', 'user4', 'root', {
 })
 
 
-const modelDefiners = []
+const modelDefiners = [
+    require("../models/contenido"),
+    require("../models/luTipo"),
+    require("../models/playlist"),
+    require("../models/playlistContenido"),
+    require("../models/tipoContenido")
+]
 
 for(const modelDefiner of modelDefiners){
     modelDefiner(sequelize)
