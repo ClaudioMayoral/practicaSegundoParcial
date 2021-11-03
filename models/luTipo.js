@@ -5,6 +5,7 @@ const LuTipo = (sequelize)=>{
             type: Sequelize.INTEGER,
             allowNull: false,
             primaryKey: true,
+            autoIncrement: true,
         },
         nombre:{
             type: Sequelize.INTEGER,

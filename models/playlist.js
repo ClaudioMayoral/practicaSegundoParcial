@@ -4,7 +4,8 @@ const Playlist = (sequelize)=>{
         id:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            primaryKey: true
+            autoIncrement: true,
+            primaryKey: true,
         },
         nombre: {
             type: Sequelize.STRING,
