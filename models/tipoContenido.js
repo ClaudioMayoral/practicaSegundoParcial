@@ -4,12 +4,20 @@ const TipoContenido = (sequelize)=>{
         id_cont:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            references: {
+                model: Contenido,
+                key: 'id'
+            }
         },
         id_tipo:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            references: {
+                model: LuTipo,
+                key: 'id'
+            }
         }
     })
 }

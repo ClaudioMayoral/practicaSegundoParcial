@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const { validate } = require('../utils/database')
 const Contenido = (sequelize)=>{
     sequelize.define('contenido', {
         id:{
@@ -8,9 +9,18 @@ const Contenido = (sequelize)=>{
         },
         nombre: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [5, 50]
+            }
         },
-        informacion: Sequelize.STRING
+        informacion:{
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                len: [10, 250]
+            }
+        } 
     })
 }
 module.exports = Contenido

@@ -4,12 +4,20 @@ const PlaylistContenido = (sequelize)=>{
         id_pl: {
             type: Sequelize.INTEGER,
             allowNull:false,
-            primaryKey: true
+            primaryKey: true,
+            references: {
+                model: Playlist,
+                key: 'id'
+            }
         },
         id_ct: {
             type: Sequelize.INTEGER,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            references:{
+                model: Contenido,
+                key: 'id'
+            }
         }
     })
 }

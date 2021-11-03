@@ -8,9 +8,18 @@ const Playlist = (sequelize)=>{
         },
         nombre: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [5, 50]
+            }
         },
-        descripcion:Sequelize.STRING
+        descripcion:{
+            type: Sequelize.STRING,
+            allowNull: false,
+            validate: {
+                len: [10, 250]
+            }
+        }
     })
 }
 module.exports = Playlist

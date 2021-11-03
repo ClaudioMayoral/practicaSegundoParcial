@@ -4,7 +4,7 @@ const LuTipo = (sequelize)=>{
         id:{
             type: Sequelize.INTEGER,
             allowNull: false,
-            primaryKey: true
+            primaryKey: true,
         },
         nombre:{
             type: Sequelize.INTEGER,
