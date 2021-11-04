@@ -1,4 +1,5 @@
 const modeloPlaylist = require('../../utils/database').models.playlist
+const mensajes = require('../../utils/exceptions')
 
 exports.getPlaylist = (req, res)=>{
     modeloPlaylist.findAll({
@@ -8,11 +9,14 @@ exports.getPlaylist = (req, res)=>{
     }).then(playlist=>{
         res.json(playlist)
     }).catch(err=>{
-        res.json({estado: "error"})
+        res.json({estado: "Error"})
     })
 }
 
 exports.createPlaylist = (req, res)=>{
+    if(true){
+        
+    }
     modeloPlaylist.create({
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
