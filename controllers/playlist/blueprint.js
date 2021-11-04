@@ -1,4 +1,4 @@
-const modeloPlaylist = require('../utils/database').models.playlist
+const modeloPlaylist = require('../../utils/database').models.playlist
 
 exports.getPlaylist = (req, res)=>{
     modeloPlaylist.findAll({
@@ -45,5 +45,15 @@ exports.updatePlaylist = (req, res)=>{
 }
 
 exports.deletePlaylist = (req, res)=>{
-    res.json({respuesta: "aceptada"})
+    modeloPlaylist.destroy({
+        where:{
+            id: req.params.id
+        } 
+     })
+     .then(() =>{
+         res.json({estado: "Playlist eliminada"})
+     })
+     .catch(err=>{
+         res.json({estado: "error"})
+     })
 }
