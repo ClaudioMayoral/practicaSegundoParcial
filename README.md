@@ -1,5 +1,6 @@
 # practicaSegundoParcial
-Lista de endpoints con sus respuestas:
+Lista de endpoints con sus body:
+
 Playlist
 
 POST: /playlist/crear
@@ -29,7 +30,9 @@ POST: /playlist/actualizar/:id
 
 POST: /playlist/eliminar/:id
 
+
 Contenido
+
 
 POST: /contenido/crear
 
