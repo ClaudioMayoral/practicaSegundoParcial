@@ -38,10 +38,10 @@ POST: /contenido/crear
 
 {
 
-    "nombre":"Eiddddos",
-    "informacion":"fdsfsdsdfsfdsfdsfdsfd",
-    "tipo":"Libro",
-    "playlistId": 2
+    "nombre":"nombre",
+    "informacion":"informacion",
+    "tipo":"Libro/Pelicula",
+    "playlistId": {id_playlist}
     
 }
 
