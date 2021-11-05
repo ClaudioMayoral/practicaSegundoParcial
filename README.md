@@ -41,6 +41,8 @@ POST: /contenido/eliminar/:id
 Respuestas:
 
  // Exception
+ 
+ Codigo                Mensaje               Http
  InvalidBodyException, Field must be string, 422
  
  InvalidBodyException, Title must be between 5 and 50 characters, 422
@@ -55,6 +57,7 @@ Respuestas:
  
 
 //Valid
+ Codigo                Mensaje               Http
 
 Success, Created successfully, 200
 
