@@ -8,6 +8,7 @@ POST: /playlist/crear
     "descripcion":"descripcion"
 }
 
+
 GET: /playlist/:id
 
 POST: /playlist/actualizar/:id
@@ -25,6 +26,7 @@ POST: /contenido/crear
     "nombre":"nombre",
     "informacion":"informacion"
 }
+
 GET: /contenido/:id
 
 POST: /contenido/actualizar/:id
