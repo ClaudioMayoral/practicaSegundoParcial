@@ -1,6 +1,7 @@
 const modeloPlaylist = require('../../utils/database').models.playlist
 const mensajes = require('../../utils/exceptions')
 
+
 exports.getPlaylist = (req, res)=>{
     modeloPlaylist.findAll({
         where:{
@@ -9,9 +10,10 @@ exports.getPlaylist = (req, res)=>{
     }).then(playlist=>{
         res.json(playlist)
     }).catch(err=>{
-        res.json({estado: "Error"})
+        res.json({estado: mensajes.NotFoundException.descripcion})
     })
 }
+
 
 exports.createPlaylist = (req, res)=>{
     if(true){
@@ -31,6 +33,7 @@ exports.createPlaylist = (req, res)=>{
     })
 }
 
+
 exports.updatePlaylist = (req, res)=>{
     modeloPlaylist.update({
         nombre: req.body.nombre,
@@ -47,6 +50,7 @@ exports.updatePlaylist = (req, res)=>{
         res.json({estado:"ERROR"})
     })
 }
+
 
 exports.deletePlaylist = (req, res)=>{
     modeloPlaylist.destroy({
