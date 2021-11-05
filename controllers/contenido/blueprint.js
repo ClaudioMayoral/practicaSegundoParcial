@@ -22,16 +22,16 @@ exports.getContenido = (req, res)=>{
             }).then(tipo=>{
                 res.json({id: contenido[0].id, nombre: contenido[0].nombre, informacion: contenido[0].informacion, playlist: playlist[0].id_pl, tipo: tipo[0].id_tipo})
             }).catch(err=>{
-                res.json({estado: mensajes.NotFoundException.mensaje})
+                res.json({estado: mensajes.NotFoundException})
             })
 
             
         }).catch(err=>{
-            res.json({estado: mensajes.NotFoundException.mensaje})
+            res.json({estado: mensajes.NotFoundException})
         })
         
     }).catch(err=>{
-        res.json({estado: mensajes.NotFoundException.mensaje})
+        res.json({estado: mensajes.NotFoundException})
     })
 }
 
@@ -57,36 +57,36 @@ exports.createContenido = (req, res)=>{
                                     id_tipo: tipoId,
                                 }).then(()=>{
                                     res.json({
-                                        estado: mensajes.SuccessCreate.mensaje
+                                        estado: mensajes.SuccessCreate
                                     })
                                 
                                 })
                                 .catch((err)=>{
-                                    res.json({estado: mensajes.NotFoundException.mensaje})
+                                    res.json({estado: mensajes.NotFoundException})
                                 })
                             })
                             .catch((err)=>{
-                                res.json({estado: mensajes.NotFoundException.mensaje})
+                                res.json({estado: mensajes.NotFoundException})
                             })
 
                         })
                     .catch((err)=>{
                         console.log(err)
-                        res.json({estado: mensajes.NotFoundException.mensaje})
+                        res.json({estado: mensajes.NotFoundException})
                     })
                     modeloPlaylistContenido.create({
                     })
                 }else{
-                    res.json({estado: mensajes.NotFoundException.mensaje})
+                    res.json({estado: mensajes.NotFoundException})
                 }
             }else{
-                res.json({estado: mensajes.InvalidDescriptionException.mensaje})
+                res.json({estado: mensajes.InvalidDescriptionException})
             }
         }else{
-            res.json({estado: mensajes.InvalidTitleException.mensaje})
+            res.json({estado: mensajes.InvalidTitleException})
         }
     }else{
-        res.json({estado: mensajes.InvalidTypeException.mensaje})
+        res.json({estado: mensajes.InvalidTypeException})
     }
 }
 
@@ -104,21 +104,21 @@ exports.updateContenido = (req, res)=>{
                     }
                 })
                 .then(()=>{
-                    res.json({estado:mensajes.SuccessUpdate.mensaje})
+                    res.json({estado:mensajes.SuccessUpdate})
                 })
                 .catch((err)=>{
-                    res.json({estado: mensajes.NotFoundException.mensaje})
+                    res.json({estado: mensajes.NotFoundException})
                 })
             }else{
-                res.json({estado: mensajes.InvalidDescriptionException.mensaje})
+                res.json({estado: mensajes.InvalidDescriptionException})
                 throw mensajes.InvalidDescriptionException
             }
         }else{
-            res.json({estado: mensajes.InvalidTitleException.mensaje})
+            res.json({estado: mensajes.InvalidTitleException})
             throw mensajes.InvalidTitleException
         }
     }else{
-        res.json({estado: mensajes.InvalidTypeException.mensaje})
+        res.json({estado: mensajes.InvalidTypeException})
     }
 }
 
@@ -140,15 +140,15 @@ exports.deleteContenido = (req, res)=>{
                     id_cont: req.params.id
                 }
             }).then(() =>{
-                res.json({estado: mensajes.SuccessDelete.mensaje})
+                res.json({estado: mensajes.SuccessDelete})
             }).catch(err=>{
-                res.json({estado: mensajes.NotFoundException.mensaje})
+                res.json({estado: mensajes.NotFoundException})
             }) 
         }).catch(err=>{
-            res.json({estado: mensajes.NotFoundException.mensaje})
+            res.json({estado: mensajes.NotFoundException})
         }) 
      })
      .catch(err=>{
-         res.json({estado: mensajes.NotFoundException.mensaje})
+         res.json({estado: mensajes.NotFoundException})
      })
 }
