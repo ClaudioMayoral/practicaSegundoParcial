@@ -7,7 +7,7 @@ function MensajeUsuario(codigo, mensaje, http) {
  // Exception
  const InvalidTypeException = new MensajeUsuario("InvalidBodyException", "Field must be string", 422)
  const InvalidTitleException = new MensajeUsuario("InvalidBodyException", "Title must be between 5 and 50 characters", 422)
- const InvalidDescriptionException = new MensajeUsuario("InvalidBodyException", "Description must be between 50 and 250 characters", 422)
+ const InvalidDescriptionException = new MensajeUsuario("InvalidBodyException", "Description must be between 15 and 250 characters", 422)
  const NotFoundException = new MensajeUsuario("NotFoundException", "Resource not found", 422)
  const InvalidContentException = new MensajeUsuario("InvalidBodyException", "Must choose from one of these departments: book, movie", 422)
 

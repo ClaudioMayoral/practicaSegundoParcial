@@ -1,6 +1,6 @@
 const modeloContenido = require('../../utils/database').models.contenido
 const modeloPlaylistContenido = require('../../utils/database').models.playlistContenido 
-const modeloTipoContenido = require('../../utils/database').models.tipoContenido
+const modeloTipoContenido = require('../../utils/database').models.tipoContenido 
 const mensajes = require('../../utils/exceptions')
 
 
@@ -10,7 +10,26 @@ exports.getContenido = (req, res)=>{
             id: req.params.id
         }
     }).then(contenido=>{
-        res.json(contenido)
+        modeloPlaylistContenido.findAll({
+            where:{
+                id_ct: req.params.id
+            }
+        }).then(playlist=>{
+            modeloTipoContenido.findAll({
+                where:{
+                    id_cont: req.params.id
+                }
+            }).then(tipo=>{
+                res.json({id: contenido[0].id, nombre: contenido[0].nombre, informacion: contenido[0].informacion, playlist: playlist[0].id_pl, tipo: tipo[0].id_tipo})
+            }).catch(err=>{
+                res.json({estado: mensajes.NotFoundException.mensaje})
+            })
+
+            
+        }).catch(err=>{
+            res.json({estado: mensajes.NotFoundException.mensaje})
+        })
+        
     }).catch(err=>{
         res.json({estado: mensajes.NotFoundException.mensaje})
     })
@@ -18,40 +37,39 @@ exports.getContenido = (req, res)=>{
 
 
 exports.createContenido = (req, res)=>{
-    if(req.body.nombre instanceof String && req.body.descripcion instanceof String && req.body.tipo instanceof String){
+    if(typeof req.body.nombre === "string" && typeof req.body.informacion === "string" && typeof req.body.tipo === "string"){
         if(req.body.nombre.length >= 5 && req.body.nombre.length <= 50){
-            if(req.body.descripcion.length >= 50 && req.body.descripcion.length <= 250){
+            if(req.body.informacion.length >= 15 && req.body.informacion.length <= 250){
                 if(req.body.tipo == "Pelicula" || req.body.tipo == "Libro"){
-                    const tipoId = req.body.tipo == "Pelicula" ? 0 : 1
+                    const tipoId = req.body.tipo == "Pelicula" ? 1 : 2
+
                     modeloContenido.create({
                         nombre: req.body.nombre,
-                        informacion: req.body.descripcion,
+                        informacion: req.body.informacion,
                     }).then(result=>{
+                            modeloPlaylistContenido.create({
+                                id_pl: req.body.playlistId,
+                                id_ct: result.id,
+                            }).then(()=>{
 
-                        modeloTipoContenido.create({
-                            id_cont: result.id,
-                            id_tipo: tipoId,
-                        }).then(()=>{
-
-                        })
-                        .catch((err)=>{
-                            res.json({estado: mensajes.Forbiden.codigo})
-                        })
-
-                        modeloPlaylistContenido.create({
-                            id_pl: req.body.playlistId,
-                            id_ct: result.id,
-                        }).then(()=>{
-                            res.json({
-                                estado: mensajes.SuccessCreate.mensaje
+                                modeloTipoContenido.create({
+                                    id_cont: result.id,
+                                    id_tipo: tipoId,
+                                }).then(()=>{
+                                    res.json({
+                                        estado: mensajes.SuccessCreate.mensaje
+                                    })
+                                
+                                })
+                                .catch((err)=>{
+                                    res.json({estado: mensajes.NotFoundException.mensaje})
+                                })
                             })
-                        })
-                        .catch((err)=>{
-                            res.json({estado: mensajes.Forbiden.codigo})
-                        })
+                            .catch((err)=>{
+                                res.json({estado: mensajes.NotFoundException.mensaje})
+                            })
 
-
-                    })
+                        })
                     .catch((err)=>{
                         console.log(err)
                         res.json({estado: mensajes.NotFoundException.mensaje})
@@ -59,54 +77,76 @@ exports.createContenido = (req, res)=>{
                     modeloPlaylistContenido.create({
                     })
                 }else{
-                    throw mensajes.NotFoundException
+                    res.json({estado: mensajes.NotFoundException.mensaje})
                 }
             }else{
-                throw mensajes.InvalidDescriptionException
+                res.json({estado: mensajes.InvalidDescriptionException.mensaje})
             }
         }else{
-            throw mensajes.InvalidTitleException
+            res.json({estado: mensajes.InvalidTitleException.mensaje})
         }
+    }else{
+        res.json({estado: mensajes.InvalidTypeException.mensaje})
     }
 }
 
 
 exports.updateContenido = (req, res)=>{
-    if(req.body.nombre instanceof String && req.body.descripcion instanceof String){
+    if(typeof req.body.nombre === "string" && typeof req.body.informacion === "string"){
         if(req.body.nombre.length >= 5 && req.body.nombre.length <= 50){
-            if(req.body.descripcion.length >= 50 && req.body.descripcion.length <= 250){
-                    modeloContenido.update({
-                        nombre: req.body.nombre,
-                        informacion: req.body.descripcion,
-                    },{
-                        where:{
-                            id: req.params.id
-                        }
-                    })
-                    .then(()=>{
-                        res.json({estado:mensajes.SuccessUpdate.mensaje})
-                    })
-                    .catch((err)=>{
-                        res.json({estado: mensajes.NotFoundException.mensaje})
-                    })
+            if(req.body.informacion.length >= 15 && req.body.informacion.length <= 250){
+                modeloContenido.update({
+                    nombre: req.body.nombre,
+                    informacion: req.body.informacion,
+                },{
+                    where:{
+                        id: req.params.id
+                    }
+                })
+                .then(()=>{
+                    res.json({estado:mensajes.SuccessUpdate.mensaje})
+                })
+                .catch((err)=>{
+                    res.json({estado: mensajes.NotFoundException.mensaje})
+                })
             }else{
+                res.json({estado: mensajes.InvalidDescriptionException.mensaje})
                 throw mensajes.InvalidDescriptionException
             }
         }else{
+            res.json({estado: mensajes.InvalidTitleException.mensaje})
             throw mensajes.InvalidTitleException
         }
+    }else{
+        res.json({estado: mensajes.InvalidTypeException.mensaje})
     }
 }
 
 
 exports.deleteContenido = (req, res)=>{
-    modeloContenido.destroy({
+    modeloPlaylistContenido.destroy({
         where:{
-            id: req.params.id
+            id_ct: req.params.id,
         } 
      })
      .then(() =>{
-         res.json({estado: mensajes.SuccessDelete.mensaje})
+        modeloTipoContenido.destroy({
+            where:{
+                id_cont: req.params.id
+            }
+        }).then(() =>{
+            modeloTipoContenido.destroy({
+                where:{
+                    id_cont: req.params.id
+                }
+            }).then(() =>{
+                res.json({estado: mensajes.SuccessDelete.mensaje})
+            }).catch(err=>{
+                res.json({estado: mensajes.NotFoundException.mensaje})
+            }) 
+        }).catch(err=>{
+            res.json({estado: mensajes.NotFoundException.mensaje})
+        }) 
      })
      .catch(err=>{
          res.json({estado: mensajes.NotFoundException.mensaje})

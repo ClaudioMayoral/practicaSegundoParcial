@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+
 const Playlist = (sequelize)=>{
     sequelize.define('playlist',{
         id:{

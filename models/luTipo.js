@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+
 const LuTipo = (sequelize)=>{
     sequelize.define('luTipo', {
         id:{

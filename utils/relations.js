@@ -9,8 +9,6 @@ function aplicarRelaciones(sequelize){
 
     playlist.belongsToMany(contenido, {through: playlistContenido})
     contenido.belongsToMany(playlist, {through: playlistContenido})
-    contenido.belongsToMany(lutipo, {through: tipoContenido})
-    lutipo.belongsToMany(contenido, {through: tipoContenido})
 }
 
 module.exports = {aplicarRelaciones}

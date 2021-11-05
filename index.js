@@ -4,6 +4,7 @@ const express = require('express')
 //Crear la aplicación web
 const app = express()
 
+const sequelize = require('./utils/database')
 const playlist = require('./routes/playlist/blueprint')
 const contenido = require('./routes/contenido/blueprint')
 
@@ -15,6 +16,10 @@ app.use("/playlist",playlist)
 app.use("/contenido",contenido)
 
 //Lanzar la aplicación para escuchar peticiones
-app.listen(8083, ()=>{
-    console.log("Aplicacion Web en linea en el puerto 8083")
-})
+sequelize.sync()
+    .then(()=>{
+        app.listen(8083,()=>{
+            console.log("Aplicación web en línea en el puerto 8083")
+    })
+    })
+    .catch(err=>console.log(err))

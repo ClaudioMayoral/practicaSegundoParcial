@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+
 const TipoContenido = (sequelize)=>{
     sequelize.define('tipoContenido',{
         id_cont:{
@@ -6,7 +7,7 @@ const TipoContenido = (sequelize)=>{
             allowNull: false,
             primaryKey: true,
             references: {
-                model: Contenido,
+                model: 'contenido',
                 key: 'id'
             }
         },
@@ -15,7 +16,7 @@ const TipoContenido = (sequelize)=>{
             allowNull: false,
             primaryKey: true,
             references: {
-                model: LuTipo,
+                model: 'luTipo',
                 key: 'id'
             }
         }

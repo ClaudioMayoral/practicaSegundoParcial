@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+
 const PlaylistContenido = (sequelize)=>{
     sequelize.define('playlistContenido', {
         id_pl: {
@@ -6,7 +7,7 @@ const PlaylistContenido = (sequelize)=>{
             allowNull:false,
             primaryKey: true,
             references: {
-                model: Playlist,
+                model: 'playlist',
                 key: 'id'
             }
         },
@@ -15,7 +16,7 @@ const PlaylistContenido = (sequelize)=>{
             allowNull: false,
             primaryKey: true,
             references:{
-                model: Contenido,
+                model: 'contenido',
                 key: 'id'
             }
         }
